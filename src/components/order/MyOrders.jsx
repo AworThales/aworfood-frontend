@@ -23,7 +23,7 @@ const MyOrders = () => {
           toast.error(error?.data?.message );
         } 
        
-        if (orderSuccess === 'true') {
+        if (orderSuccess) {
             dispatch(clearCart());
             toast.success("Order Placed Successfully");
             navigate("/me/orders");
