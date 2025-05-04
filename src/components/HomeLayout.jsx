@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import MetaData from './layout/MetaData';
 import { useGetFoodsQuery } from '../redux/api/foodApi';
-import FoodItem from './food/foodItem';
+import FoodItem from './food/FoodItem';
 import LoadingSpinner from './layout/LoadingSpinner';
 import toast from 'react-hot-toast';
 import CustomPagination from './layout/CustomPagination';
