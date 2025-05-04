@@ -26,7 +26,8 @@ const MyOrders = () => {
     }
 
     // Handle redirect after successful order only once
-    if (orderSuccess === 'true' && !handledRedirect.current) {
+    if (orderSuccess) {
+        console.log("order success is:", orderSuccess)
       handledRedirect.current = true;  // Mark as handled
       dispatch(clearCart());  // Clear cart after successful order
       toast.success("Order Placed Successfully");
