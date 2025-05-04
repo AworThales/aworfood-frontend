@@ -6,7 +6,6 @@ import { caluclateOrderCost } from '../../helpers/helpers';
 import { useCreateNewOrderMutation, useStripeCheckoutSessionMutation } from '../../redux/api/orderApi';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { clearCart } from '../../redux/features/cartSlice';
 
 const PaymentMethod = () => {
   const [method, setMethod] = useState('');
@@ -39,7 +38,7 @@ const PaymentMethod = () => {
     }
 
     if (isSuccess) {
-      navigate('/me/orders?order_success=true');
+      navigate("/me/orders?order_success=true");
     }
   }, [error, isSuccess, navigate]);
 
