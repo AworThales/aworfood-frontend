@@ -1,0 +1,262 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+}
+
+
+
+
+/* Pagination */
+.pagination {
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.page-item {
+  margin: 0 5px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.page-item:hover {
+  transform: scale(1.1);
+}
+
+.page-item.active .page-link {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+/* banner transion */
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in-left {
+  animation: fadeInLeft 1.2s ease-in-out forwards;
+}
+
+.fade-in-right {
+  animation: fadeInRight 1.2s ease-in-out forwards;
+}
+
+
+
+/* foodcard transion */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.fade-in-card {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease-in-out forwards;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease-in-out;
+}
+
+
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* food detail */
+/* 
+
+@media (max-width: 768px) {
+  .navbar .dropdown-menu {
+    left: auto !important;
+    right: 0 !important;
+  }
+} */
+
+
+/* navbar */
+/* Custom Styles for Navbar */
+@media (max-width: 992px) {
+  /* Make the search bar more compact on medium and smaller screens */
+  .navbar .form-control {
+    width: 100%; /* Full width on small screens */
+  }
+
+  .navbar .navbar-nav {
+    margin-top: 0; /* Remove extra margin on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  /* On small screens, stack elements vertically */
+  .navbar .navbar-nav {
+    flex-direction: column; /* Stack items vertically */
+    margin-top: 10px;
+  }
+
+  /* Align search bar to be smaller on mobile */
+  .navbar .form-control {
+    width: 80%; /* Slightly smaller width on mobile */
+  }
+  
+  .navbar .navbar-nav .nav-item {
+    margin: 5px 0; /* Add spacing between nav items on mobile */
+  }
+
+  .navbar .navbar-toggler {
+    margin-left: auto; /* Align the toggle button to the right */
+  }
+
+  .navbar .dropdown-menu {
+    position: relative; /* Adjust dropdown on mobile */
+  }
+}
+
+@media (max-width: 576px) {
+  /* For extra small devices like mobile phones */
+  .navbar .navbar-brand {
+    font-size: 1.2rem; /* Reduce font size for the brand */
+  }
+
+  .navbar .form-control {
+    width: 60%; /* Even smaller width for search bar on very small screens */
+  }
+
+  .navbar .navbar-nav .nav-item {
+    margin: 5px 0; /* Stack nav items vertically with space */
+  }
+
+  .navbar .dropdown-menu {
+    left: -10px; /* Adjust dropdown positioning for mobile */
+  }
+}
+
+/* user sidebarmenu */
+.list-group-item {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
+
+.list-group-item.active:hover {
+  background-color: #dc3545 !important;
+}
+
+
+/* checj */
+
+
+/* Checkout Steps */
+
+.checkout-progress div {
+  box-sizing: border-box;
+}
+
+.checkout-progress {
+  display: block;
+  clear: both;
+  margin: 20px auto;
+  width: auto;
+  font-family: sans-serif;
+  overflow: auto;
+}
+
+.step {
+  margin: 0;
+  border: 0;
+  letter-spacing: 1px;
+  line-height: 30px;
+  padding: 5px 10px 5px 15px;
+  color: grey;
+  text-decoration: none;
+  cursor: default;
+  font-weight: bold;
+  float: left;
+  height: auto;
+}
+
+.incomplete {
+  background: #eeeeee;
+}
+
+.active-step {
+  background: #f92e49;
+  color: #fff;
+}
+
+.triangle-active {
+  float: left;
+  width: 0;
+  border-top: 20px solid transparent;
+  border-left: 15px solid #f92e49;
+  border-bottom: 20px solid transparent;
+  margin-left: -1px;
+}
+
+.triangle2-active {
+  width: 0;
+  float: left;
+  border-top: 20px solid #f92e49;
+  border-left: 15px solid #fff;
+  border-bottom: 20px solid #f92e49;
+  margin-right: -1px;
+}
+
+.triangle-incomplete {
+  float: left;
+  width: 0;
+  border-top: 20px solid transparent;
+  border-left: 15px solid #eeeeee;
+  border-bottom: 20px solid transparent;
+  margin-left: -1px;
+}
+
+.triangle2-incomplete {
+  width: 0;
+  float: left;
+  border-top: 20px solid #eeeeee;
+  border-left: 15px solid #fff;
+  border-bottom: 20px solid #eeeeee;
+  margin-right: -1px;
+}
