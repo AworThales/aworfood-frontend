@@ -24,7 +24,6 @@ const PaymentMethod = () => {
     if (checkoutData) {
         // console.log(checkoutData)
         window.location.href = checkoutData?.url;
-         dispatch(clearCart());
     }
 
     if (checkoutError) {
@@ -40,7 +39,6 @@ const PaymentMethod = () => {
     }
 
     if (isSuccess) {
-      toast.success('Order placed successfully');
       navigate('/me/orders?order_success=true');
     }
   }, [error, isSuccess, navigate]);
