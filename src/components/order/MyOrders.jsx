@@ -4,36 +4,39 @@ import { useMyOrdersQuery } from '../../redux/api/orderApi';
 import LoadingSpinner from '../layout/LoadingSpinner';
 import MetaData from '../layout/MetaData';
 import { MDBDataTable } from "mdbreact";
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { clearCart } from '../../redux/features/cartSlice';
 
 const MyOrders = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const orderSuccess = queryParams.get('order_success');  // Check for the query parameter
+  
   const dispatch = useDispatch();
-
-  const orderSuccess = searchParams.get("order_success");
-  const handledRedirect = useRef(false);
+  const handledRedirect = useRef(false);  // Use Ref to handle redirect only once
 
   const { data, isLoading, error } = useMyOrdersQuery();
 
+  // Effect to handle order success and reset state
   useEffect(() => {
     if (error) {
       toast.error(error?.data?.message || 'Failed to load orders');
     }
 
-    // Handle Stripe redirect success only once
+    // Handle redirect after successful order only once
     if (orderSuccess === 'true' && !handledRedirect.current) {
-      handledRedirect.current = true;
-      dispatch(clearCart());
+      handledRedirect.current = true;  // Mark as handled
+      dispatch(clearCart());  // Clear cart after successful order
       toast.success("Order Placed Successfully");
-
-      // Navigate and remove query param from URL
+      
+      // Remove query param from URL by navigating with 'replace'
       navigate("/me/orders", { replace: true });
     }
   }, [error, orderSuccess, dispatch, navigate]);
 
+  // Function to set orders data for the MDB DataTable
   const setOrders = () => {
     const orders = {
       columns: [
@@ -71,7 +74,7 @@ const MyOrders = () => {
               <li className="fa fa-print"></li>
             </Link>
           </div>
-        )
+        ),
       });
     });
 
