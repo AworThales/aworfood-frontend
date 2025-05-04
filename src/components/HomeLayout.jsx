@@ -79,7 +79,7 @@ const HomeLayout = () => {
           </div>
 
           {/* Pagination - only when no filters or search */}
-          {!hasFilters && (
+          {!hasFilters && data && (
             <CustomPagination
               resPerPage={data?.resPerPage}
               filteredFoodsCount={data?.filteredFoodsCount}
