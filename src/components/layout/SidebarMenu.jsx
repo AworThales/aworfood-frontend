@@ -1,16 +1,16 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useLazyLogoutQuery } from '../../redux/api/authApi';
+import {  useLogoutMutation } from '../../redux/api/authApi';
 
 const SidebarMenu = ({ menuItems }) => {
 
 
    const navigate = useNavigate();
-    const [logout] = useLazyLogoutQuery();
+    const [logout] = useLogoutMutation();
   
   
-    const logoutHandler = () => {
-      logout();
+    const logoutHandler = async () => {
+      await logout().unwrap();
       // await logout().unwrap();
       navigate(0); // Refresh page
     };
