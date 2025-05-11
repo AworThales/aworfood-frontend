@@ -58,7 +58,7 @@ const PaymentMethod = () => {
         shippingAmount: shippingPrice,
         taxAmount: taxPrice,
         totalAmount: totalPrice,
-        // paymentInfo: { status: 'Not Paid' },
+        paymentInfo: { status: 'Not Paid' },
         paymentMethod: 'COD',
       };
 

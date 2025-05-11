@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRegisterMutation } from '../../redux/api/authApi';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import MetaData from '../layout/MetaData';
 
@@ -129,9 +129,9 @@ const Register = () => {
               {/* Already Have Account */}
               <div className="text-center mt-3">
                 <span className="small">Already have an account?</span>{' '}
-                <a href="/login" className="text-decoration-none text-danger small">
+                <Link to={"/login"} className="text-decoration-none text-danger small">
                   Login
-                </a>
+                </Link>
               </div>
             </form>
           </div>

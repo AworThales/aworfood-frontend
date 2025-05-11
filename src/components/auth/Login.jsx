@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLoginMutation } from '../../redux/api/authApi';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import MetaData from '../layout/MetaData';
 
 const Login = () => {
@@ -100,9 +100,9 @@ const Login = () => {
 
               {/* Forgot Password */}
               <div className="d-flex justify-content-end mb-3">
-                <a href="/password/forgot" className="text-decoration-none small text-danger">
+                <Link to={"/password/forgot"} className="text-decoration-none small text-danger">
                   Forgot Password?
-                </a>
+                </Link>
               </div>
 
               {/* Submit Button */}
@@ -113,9 +113,9 @@ const Login = () => {
               {/* New User Link */}
               <div className="text-center mt-3">
                 <span className="small">New Account?</span>{' '}
-                <a href="/register" className="text-decoration-none text-danger small">
+                <Link to={"/register"} className="text-decoration-none text-danger small">
                   Register Here
-                </a>
+                </Link>
               </div>
             </form>
           </div>
