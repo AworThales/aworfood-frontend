@@ -52,7 +52,7 @@ const ListsOrders = () => {
       orders.rows.push({
         id: order?._id,
         paymentStatus: (
-          <span className={`badge ${paymentStatus === "Paid" ? "bg-success" : "bg-warning text-dark"}`}>
+          <span className={`badge ${paymentStatus === "PAID" ? "bg-success" : "bg-warning text-dark"}`}>
             {paymentStatus}
           </span>
         ),
