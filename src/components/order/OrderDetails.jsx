@@ -23,7 +23,6 @@ const OrderDetails = () => {
     createdAt,
     user,
     _id,
-    isPaid,
     paidAt,
     deliveredAt,
   } = order;
@@ -33,6 +32,8 @@ const OrderDetails = () => {
       toast.error(error?.data?.message);
     }
   }, [error]);
+
+  const isPaid = (paymentMethod === "COD" && orderStatus === "Delivered") || paymentInfo?.status === "paid";
 
   if (isLoading) return <LoadingSpinner />;
 

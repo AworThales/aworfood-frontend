@@ -43,13 +43,17 @@ const MyOrders = () => {
     };
 
     data?.orders?.forEach((order) => {
+      const isPaid =
+        (order?.paymentMethod === "COD" && order?.orderStatus === "Delivered") ||
+        order?.paymentInfo?.status === "paid";
+
       orders.rows.push({
         id: order?._id,
         name: order?.orderItems?.[0]?.name || 'N/A',
         amount: `$${Number(order?.totalAmount).toFixed(2)}`,
         status: (
-          <span className={`badge ${order?.isPaid ? "bg-success" : "bg-warning text-dark"}`}>
-            {order?.isPaid ? "PAID" : "NOT PAID"}
+          <span className={`badge ${isPaid ? "bg-success" : "bg-warning text-dark"}`}>
+            {isPaid ? "PAID" : "NOT PAID"}
           </span>
         ),
         orderStatus: (
@@ -57,7 +61,6 @@ const MyOrders = () => {
             {order?.orderStatus}
           </span>
         ),
-        // Formatting the Order Date
         date: new Date(order?.createdAt).toLocaleString(),
         actions: (
           <div className="d-flex gap-2 justify-content-center">
