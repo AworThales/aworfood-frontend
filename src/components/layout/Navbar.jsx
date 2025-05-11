@@ -1,12 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetMeQuery } from '../../redux/api/userApi';
 import { Link } from 'react-router-dom';
 import { useLogoutMutation } from '../../redux/api/authApi';
 import Search from './Search';
+import { logoutUser } from '../../redux/features/userSlice';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
   const navigate = useNavigate();
+   const dispatch = useDispatch();
   const { isLoading } = useGetMeQuery();
   const [logout] = useLogoutMutation();
 
@@ -14,9 +17,11 @@ const Navbar = () => {
   const { cartItems } = useSelector((state) => state.cart);
 
   const logoutHandler = async () => {
-    await logout().unwrap();
-    navigate("/"); // Refresh page
-  };
+        await logout().unwrap();       // API call
+        dispatch(logoutUser());        // Clear user state
+        toast.success("Logged out successfully");
+        navigate("/"); 
+      };
 
   const capitalizeFirstLetter = (name) => {
     if (!name) return '';
