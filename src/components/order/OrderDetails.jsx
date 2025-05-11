@@ -23,6 +23,9 @@ const OrderDetails = () => {
     createdAt,
     user,
     _id,
+    isPaid,
+    paidAt,
+    deliveredAt,
   } = order;
 
   useEffect(() => {
@@ -63,7 +66,7 @@ const OrderDetails = () => {
               <h6 className="fw-bold">Shipping Info</h6>
               <p className="mb-1"><strong>Name:</strong> {user?.name}</p>
               <p className="mb-1"><strong>Phone:</strong> {shippingInfo?.phoneNo}</p>
-              <p className="mb-0"><strong>Address:</strong><br /> 
+              <p className="mb-0"><strong>Address:</strong><br />
                 {shippingInfo?.address}, {shippingInfo?.city}, {shippingInfo?.zipCode}, {shippingInfo?.country}
               </p>
             </div>
@@ -73,21 +76,33 @@ const OrderDetails = () => {
               <h6 className="fw-bold">Payment Info</h6>
               <p className="mb-1">
                 <strong>Status:</strong>{" "}
-                <span className={`badge ${paymentInfo?.status === "paid" ? "bg-success" : "bg-warning text-dark"}`}>
-                  {paymentInfo?.status?.toUpperCase()}
+                <span className={`badge ${isPaid ? "bg-success" : "bg-warning text-dark"}`}>
+                  {isPaid ? "PAID" : "NOT PAID"}
                 </span>
               </p>
+              {isPaid && paidAt && (
+                <p className="text-muted mb-1">
+                  Paid on: {new Date(paidAt).toLocaleString()}
+                </p>
+              )}
               <p className="mb-1"><strong>Method:</strong> {paymentMethod}</p>
               <p className="mb-0"><strong>Stripe ID:</strong> {paymentInfo?.id || "N/A"}</p>
             </div>
           </div>
 
-          {/* Order Status */}
+          {/* Delivery Info */}
           <div className="mt-3">
-            <h6 className="fw-bold">Order Status</h6>
-            <span className={`badge ${orderStatus === "Delivered" ? "bg-success" : "bg-secondary"}`}>
-              {orderStatus}
-            </span>
+            <h6 className="fw-bold">Delivery Status</h6>
+            <p className="mb-1">
+              <span className={`badge ${orderStatus === "Delivered" ? "bg-success" : "bg-secondary"}`}>
+                {orderStatus}
+              </span>
+            </p>
+            {orderStatus === "Delivered" && deliveredAt && (
+              <p className="text-muted mb-0">
+                Delivered on: {new Date(deliveredAt).toLocaleString()}
+              </p>
+            )}
           </div>
         </div>
 

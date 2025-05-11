@@ -1,51 +1,42 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useMyOrdersQuery } from '../../redux/api/orderApi';
 import LoadingSpinner from '../layout/LoadingSpinner';
 import MetaData from '../layout/MetaData';
 import { MDBDataTable } from "mdbreact";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { clearCart } from '../../redux/features/cartSlice';
 
 const MyOrders = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const orderSuccess = queryParams.get('order_success');  // Check for the query parameter
-  
+  const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
-  const handledRedirect = useRef(false);  // Use Ref to handle redirect only once
+
+  const orderSuccess = searchParams.get("order_success");
 
   const { data, isLoading, error } = useMyOrdersQuery();
 
-  // Effect to handle order success and reset state
   useEffect(() => {
     if (error) {
-      toast.error(error?.data?.message || 'Failed to load orders');
+      toast.error(error?.data?.message);
     }
 
-    // Handle redirect after successful order only once
     if (orderSuccess) {
-        console.log("order success is:", orderSuccess)
-      handledRedirect.current = true;  // Mark as handled
-      dispatch(clearCart());  // Clear cart after successful order
-      toast.success("Order Placed Successfully");
-      
-      // Remove query param from URL by navigating with 'replace'
-      navigate("/me/orders", { replace: true });
+      dispatch(clearCart());
+      navigate("/me/orders");
     }
   }, [error, orderSuccess, dispatch, navigate]);
 
-  // Function to set orders data for the MDB DataTable
   const setOrders = () => {
     const orders = {
       columns: [
-        { label: "Order Id", field: "id", sort: "asc" },
+        { label: "Order ID", field: "id", sort: "asc" },
         { label: "Food Name", field: "name", sort: "asc" },
         { label: "Amount", field: "amount", sort: "asc" },
         { label: "Payment Status", field: "status", sort: "asc" },
         { label: "Order Status", field: "orderStatus", sort: "asc" },
+        { label: "Order Date", field: "date", sort: "asc" },
         { label: "Actions", field: "actions", sort: "asc" },
       ],
       rows: [],
@@ -57,8 +48,8 @@ const MyOrders = () => {
         name: order?.orderItems?.[0]?.name || 'N/A',
         amount: `$${Number(order?.totalAmount).toFixed(2)}`,
         status: (
-          <span className={`badge ${order?.paymentInfo?.status === "paid" ? "bg-success" : "bg-warning"}`}>
-            {order?.paymentInfo?.status?.toUpperCase()}
+          <span className={`badge ${order?.isPaid ? "bg-success" : "bg-warning text-dark"}`}>
+            {order?.isPaid ? "PAID" : "NOT PAID"}
           </span>
         ),
         orderStatus: (
@@ -66,6 +57,8 @@ const MyOrders = () => {
             {order?.orderStatus}
           </span>
         ),
+        // Formatting the Order Date
+        date: new Date(order?.createdAt).toLocaleString(),
         actions: (
           <div className="d-flex gap-2 justify-content-center">
             <Link to={`/me/order/${order?._id}`} className='btn btn-outline-primary' title="View Order">
@@ -75,7 +68,7 @@ const MyOrders = () => {
               <li className="fa fa-print"></li>
             </Link>
           </div>
-        ),
+        )
       });
     });
 
@@ -90,6 +83,7 @@ const MyOrders = () => {
       <h3 className="fw-bold my-5">
         You have {data?.orders?.length || 0} {data?.orders?.length === 1 ? "order" : "orders"}
       </h3>
+
       <MDBDataTable
         data={setOrders()}
         className="px-3 table table-hover"
