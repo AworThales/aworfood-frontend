@@ -1,5 +1,5 @@
-import React from 'react'
-import { Route } from "react-router-dom"
+import React from 'react';
+import { Route } from 'react-router-dom';
 
 import Home from '../Home';
 import FoodDetaills from '../food/FoodDetaills';
@@ -20,82 +20,26 @@ import MyOrders from '../order/MyOrders';
 import OrderDetails from '../order/OrderDetails';
 import Invoce from '../invoice/Invoce';
 
+const userRoutes = () => [
+  <Route path="/" element={<Home />} key="home" />,
+  <Route path="/food/:id" element={<FoodDetaills />} key="food-details" />,
+  <Route path="/login" element={<Login />} key="login" />,
+  <Route path="/register" element={<Register />} key="register" />,
+  <Route path="/password/forgot" element={<ForgotPassword />} key="forgot-password" />,
+  <Route path="/password/reset/:token" element={<ResetPassword />} key="reset-password" />,
+  
+  <Route path="/me/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} key="profile" />,
+  <Route path="/me/update_profile" element={<ProtectedRoute><UpdateProfile /></ProtectedRoute>} key="update-profile" />,
+  <Route path="/me/upload_avatar" element={<ProtectedRoute><UploadAvatar /></ProtectedRoute>} key="upload-avatar" />,
+  <Route path="/me/update_password" element={<ProtectedRoute><UpdatePassword /></ProtectedRoute>} key="update-password" />,
 
-const userRoutes = () => {
-    
-  return (
-    <>
-        <Route path='/' element={<Home />} />
-        <Route path='/food/:id' element={<FoodDetaills />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register/>} />
-        <Route path='/password/forgot' element={<ForgotPassword/>} />
-        <Route path='/password/reset/:token' element={<ResetPassword/>} />
+  <Route path="/cart" element={<Cart />} key="cart" />,
+  <Route path="/shipping" element={<ProtectedRoute><Shipping /></ProtectedRoute>} key="shipping" />,
+  <Route path="/confirm_order" element={<ProtectedRoute><ConfirmOrder /></ProtectedRoute>} key="confirm-order" />,
+  <Route path="/payment_method" element={<ProtectedRoute><PaymentMethod /></ProtectedRoute>} key="payment-method" />,
+  <Route path="/me/orders" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} key="my-orders" />,
+  <Route path="/me/order/:id" element={<ProtectedRoute><OrderDetails /></ProtectedRoute>} key="order-details" />,
+  <Route path="/invoice/order/:id" element={<ProtectedRoute><Invoce /></ProtectedRoute>} key="invoice" />,
+];
 
-        <Route path='/me/profile' element={
-            <ProtectedRoute>
-            <Profile/>
-            </ProtectedRoute>
-        } />
-
-        <Route path='/me/update_profile' element={
-            <ProtectedRoute>
-            <UpdateProfile/>
-            </ProtectedRoute>
-        } />
-
-        <Route path='/me/upload_avatar' element={
-            <ProtectedRoute>
-            <UploadAvatar/>
-            </ProtectedRoute>
-        } />
-
-        <Route path='/me/update_password' element={
-            <ProtectedRoute>
-            <UpdatePassword/>
-            </ProtectedRoute>
-        } />
-
-        <Route path='/cart' element={<Cart/>} />
-
-        <Route path='/shipping' element={
-            <ProtectedRoute>
-            <Shipping/>
-            </ProtectedRoute>
-        } />
-
-        <Route path='/confirm_order' element={
-            <ProtectedRoute>
-            <ConfirmOrder/>
-            </ProtectedRoute>
-        } />
-
-        <Route path='/payment_method' element={
-            <ProtectedRoute>
-            <PaymentMethod/>
-            </ProtectedRoute>
-        } />
-
-
-        <Route path='/me/orders' element={
-            <ProtectedRoute>
-            <MyOrders/>
-            </ProtectedRoute>
-        } />
-
-        <Route path='/me/order/:id' element={
-            <ProtectedRoute>
-            <OrderDetails/>
-            </ProtectedRoute>
-        } />
-
-        <Route path='/invoice/order/:id' element={
-            <ProtectedRoute>
-            <Invoce/>
-            </ProtectedRoute>
-        } />
-    </>
-  )
-}
-
-export default userRoutes
+export default userRoutes;
