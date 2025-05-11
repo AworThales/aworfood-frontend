@@ -2,13 +2,13 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useGetMeQuery } from '../../redux/api/userApi';
 import { Link } from 'react-router-dom';
-import { useLazyLogoutQuery } from '../../redux/api/authApi';
+import { useLogoutMutation } from '../../redux/api/authApi';
 import Search from './Search';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { isLoading } = useGetMeQuery();
-  const [logout] = useLazyLogoutQuery();
+  const [logout] = useLogoutMutation();
 
   const { user } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
