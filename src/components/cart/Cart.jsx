@@ -61,7 +61,7 @@ const Cart = () => {
                     <div className="row align-items-center">
                       <div className="col-4 col-md-3 text-center">
                         <img
-                          src={item?.image}
+                          src={item?.image?.replace('http://', 'https://')}
                           alt={item?.name}
                           className="img-fluid rounded"
                           style={{ maxHeight: '100px', objectFit: 'cover' }}
