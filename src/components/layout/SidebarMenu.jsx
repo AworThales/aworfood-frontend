@@ -1,21 +1,18 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import {  useLogoutMutation } from '../../redux/api/authApi';
-import { useDispatch } from 'react-redux';
-import { logoutUser } from '../../redux/features/userSlice';
-import toast from 'react-hot-toast';
+import { useLazyLogoutQuery } from '../../redux/api/authApi';
 
 const SidebarMenu = ({ menuItems }) => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const [logout] = useLogoutMutation();
+
+
+   const navigate = useNavigate();
+    const [logout] = useLazyLogoutQuery();
   
   
-    const logoutHandler = async () => {
-      await logout().unwrap();       // API call
-      dispatch(logoutUser());        // Clear user state
-      toast.success("Logged out successfully");
-      navigate("/"); 
+    const logoutHandler = () => {
+      logout();
+      // await logout().unwrap();
+      navigate(0); // Refresh page
     };
   
 
