@@ -12,7 +12,7 @@ const SidebarMenu = ({ menuItems }) => {
     const logoutHandler = async () => {
       await logout().unwrap();
       // await logout().unwrap();
-      navigate(0); // Refresh page
+      navigate("/"); // Refresh page
     };
   
 

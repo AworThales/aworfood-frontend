@@ -13,9 +13,9 @@ const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
 
-  const logoutHandler = () => {
-    logout();
-    navigate(0); // Refresh page
+  const logoutHandler = async () => {
+    await logout().unwrap();
+    navigate("/"); // Refresh page
   };
 
   const capitalizeFirstLetter = (name) => {
